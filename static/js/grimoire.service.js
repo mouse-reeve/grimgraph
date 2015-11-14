@@ -1,7 +1,8 @@
 angular.module('grimoireService', []).service('Grimoire', function ($http) {
     return {
-        grimoires: function () {
-            return $http.get('/api/grimoires').then(function (response) {
+        load: function (label) {
+            label = label ? label : 'grimoires';
+            return $http.get('/api/' + label).then(function (response) {
                 return response.data;
             });
         }

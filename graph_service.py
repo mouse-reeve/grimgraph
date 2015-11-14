@@ -10,6 +10,7 @@ def serialize(func):
         for item in data.records:
             node = item['n']
             serialized.append({
+                'id': node._id,
                 'labels': [l for l in node.labels],
                 'properties': node.properties
             })

@@ -7,8 +7,16 @@ angular.module('app', ['grimoireService', 'ngRoute'])
 
     $routeProvider
         .when('/', {
-            controller: 'MainCtrl',
-            templateUrl: '/static/partials/main.html'
+            controller: 'ListCtrl',
+            templateUrl: '/static/partials/list.html'
+        })
+        .when('/:type', {
+            controller: 'ListCtrl',
+            templateUrl: 'static/partials/list.html'
+        })
+        .when('/:type/:id', {
+            controller: 'NodeCtrl',
+            templateUrl: 'static/partials/node.html'
         })
         .otherwise({
             redirectTo: '/'
