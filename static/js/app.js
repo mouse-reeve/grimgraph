@@ -12,11 +12,11 @@ angular.module('app', ['grimoireService', 'ngRoute'])
         })
         .when('/:type', {
             controller: 'ListCtrl',
-            templateUrl: 'static/partials/list.html'
+            templateUrl: '/static/partials/list.html'
         })
         .when('/:type/:id', {
             controller: 'NodeCtrl',
-            templateUrl: 'static/partials/node.html'
+            templateUrl: '/static/partials/node.html'
         })
         .otherwise({
             redirectTo: '/'

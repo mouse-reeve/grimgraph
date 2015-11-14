@@ -19,24 +19,25 @@ def success(data=None):
 
 
 # ----- routes
-@app.route('/')
-def index():
-    ''' render start page '''
-    return render_template('index.html')
-
-
-@app.route('/<_>')
-def angular(_):
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def angular(path):
     ''' render the basic template for angular '''
     return render_template('index.html')
 
 # ----- API routes
-@app.route('/api/grimoires')
-def grimoires():
-    ''' load all grimoires '''
-    data = graph.get_all_for_type('grimoire')
+@app.route('/api/<label>')
+def item_list(label):
+    ''' load all for a label '''
+    data = graph.get_all_for_type(label)
     return success(data)
 
+
+@app.route('/api/item/<item_id>')
+def item(item_id):
+    ''' load a specific item '''
+    data = graph.get_node(item_id)
+    return success(data[0])
 
 if __name__ == '__main__':
     app.debug = True

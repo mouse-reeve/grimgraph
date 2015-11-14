@@ -8,7 +8,7 @@ def serialize(func):
         data = func(self, label)
         serialized = []
         for item in data.records:
-            node = item['n']
+            node = item['node']
             serialized.append({
                 'id': node._id,
                 'labels': [l for l in node.labels],
@@ -33,13 +33,14 @@ class GraphService(object):
     @serialize
     def get_all_for_type(self, label):
         ''' load all nodes with a given label '''
-        data = self.query('MATCH (n:%s) RETURN n' % label)
+        data = self.query('MATCH (node:%s) RETURN node' % label)
         return data
 
 
+    @serialize
     def get_node(self, node_id):
         ''' load data '''
-        node = self.query('MATCH n WHERE id(n) = %d RETURN t' % node_id)
+        node = self.query('MATCH node WHERE id(node) = %s RETURN node' % node_id)
         return node
 
 
