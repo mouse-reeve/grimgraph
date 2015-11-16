@@ -1,6 +1,13 @@
 <h2>{{ item.properties.title }}</h2>
-<ul>
-    <li ng-repeat="(key, value) in item.properties">
-        {{ key }}: {{ value }}
-    </li>
-</ul>
+<i class="fa fa-pencil" ng-click="edit=true"></i>
+<form ng-submit="updateNode()">
+    <ul>
+        <li ng-repeat="(key, value) in item.properties">
+            <label for="{{ key }}">{{ key }}
+                <span ng-hide="edit">{{ value }}</span>
+                <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
+            </label>
+        </li>
+    </ul>
+    <input type="submit" value="Save Changes" ng-show="edit">
+</form>

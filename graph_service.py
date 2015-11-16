@@ -1,4 +1,5 @@
 ''' neo4j logic '''
+import json
 from py2neo import Graph
 
 def serialize(func):
@@ -8,7 +9,7 @@ def serialize(func):
         data = func(self, label)
         serialized = []
         for item in data.records:
-            node = item['node']
+            node = item['n']
             serialized.append({
                 'id': node._id,
                 'labels': [l for l in node.labels],
@@ -25,22 +26,27 @@ class GraphService(object):
         self.query = graph.cypher.execute
 
 
-    def add_node(self, data, label):
-        ''' insert data '''
-        pass
-
-
     @serialize
     def get_all_for_type(self, label):
         ''' load all nodes with a given label '''
-        data = self.query('MATCH (node:%s) RETURN node' % label)
+        data = self.query('MATCH (n:%s) RETURN n' % label)
         return data
 
 
     @serialize
     def get_node(self, node_id):
         ''' load data '''
-        node = self.query('MATCH node WHERE id(node) = %s RETURN node' % node_id)
+        node = self.query('MATCH n WHERE id(n) = %s RETURN n' % node_id)
         return node
 
 
+    def add_node(self, label, params):
+        ''' insert data '''
+        node = self.query('CREATE (n:%s) %s return n' % (label, json.dumps(params)))
+        return node
+
+
+    def update_params(self, node_id, params):
+        ''' set the parameters on a node '''
+        self.query('MATCH n WHERE id(n) = %s SET n = {params} RETURN n' %
+                   node_id, params=params)
