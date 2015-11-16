@@ -2,11 +2,15 @@
 <i class="fa fa-pencil" ng-click="edit=true"></i>
 <form ng-submit="updateNode()">
     <ul>
-        <li ng-repeat="(key, value) in item.properties">
+        <li ng-repeat="(key, value) in itemCopy.properties">
             <label for="{{ key }}">{{ key }}
                 <span ng-hide="edit">{{ value }}</span>
                 <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
             </label>
+        </li>
+        <li ng-show="edit">
+            <i class="fa fa-plus" ng-click="addField()"></i>
+            <input type="text" ng-model="newField">
         </li>
     </ul>
     <input type="submit" value="Save Changes" ng-show="edit">

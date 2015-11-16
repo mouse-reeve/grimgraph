@@ -7,13 +7,18 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         $scope.itemCopy = angular.copy($scope.item);
     });
 
+    $scope.addField = function () {
+        if ($scope.newField) {
+            $scope.itemCopy.properties[$scope.newField] = "";
+        }
+    };
+
     $scope.updateNode = function () {
         Grimoire.updateNode($scope.itemCopy).then(function (data) {
             $scope.item = $scope.itemCopy;
-            console.log('success');
+            $scope.edit = false;
         });
     };
-
 
 }]);
 
