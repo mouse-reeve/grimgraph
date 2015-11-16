@@ -15,3 +15,11 @@
     </ul>
     <input type="submit" value="Save Changes" ng-show="edit">
 </form>
+
+<ul>
+    <li ng-repeat="rel in item.relationships">
+        <span ng-if="rel.end.id == item.id">{{ rel.start.properties.name }}</span>
+        <span>{{ rel.type}}</span>
+        <span ng-if="rel.start.id == item.id">{{ rel.end.properties.name }}</span>
+    </li>
+</ul>

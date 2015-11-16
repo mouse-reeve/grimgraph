@@ -7,15 +7,38 @@ def serialize(func):
     def serialize_wrapper(self, label):
         ''' serialize dis '''
         data = func(self, label)
-        serialized = []
+        nodes = []
         for item in data.records:
             node = item['n']
-            serialized.append({
+            rels = []
+
+            try:
+                item_rels = item['r']
+            except AttributeError:
+                pass
+            else:
+                for rel in item_rels:
+                    rels.append({
+                        'id': rel._id,
+                        'start': {
+                            'id': rel.start_node._id,
+                            'properties': rel.start_node.properties
+                        },
+                        'end': {
+                            'id': rel.end_node._id,
+                            'properties': rel.end_node.properties
+                        },
+                        'type': rel.type,
+                        'properties': rel.properties
+                    })
+            nodes.append({
                 'id': node._id,
                 'labels': [l for l in node.labels],
-                'properties': node.properties
+                'properties': node.properties,
+                'relationships': rels
             })
-        return serialized
+
+        return nodes
     return serialize_wrapper
 
 class GraphService(object):
@@ -36,7 +59,7 @@ class GraphService(object):
     @serialize
     def get_node(self, node_id):
         ''' load data '''
-        node = self.query('MATCH n WHERE id(n) = %s RETURN n' % node_id)
+        node = self.query('MATCH n-[r]-() WHERE id(n) = %s RETURN n, r' % node_id)
         return node
 
 
