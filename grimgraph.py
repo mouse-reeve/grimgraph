@@ -39,14 +39,14 @@ def add_node(label):
     params = request.json['properties']
     data = graph.add_node(label, params)
 
-    return success(data[0])
+    return success(data)
 
 
 @app.route('/api/item/<item_id>', methods=['GET'])
 def get_node(item_id):
     ''' load a specific item '''
     data = graph.get_node(item_id)
-    return success(data[0])
+    return success(data)
 
 
 @app.route('/api/item/<item_id>', methods=['PUT'])

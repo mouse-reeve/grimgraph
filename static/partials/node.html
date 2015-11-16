@@ -17,9 +17,15 @@
 </form>
 
 <ul>
-    <li ng-repeat="rel in item.relationships">
-        <span ng-if="rel.end.id == item.id">{{ rel.start.properties.name }}</span>
+    <li ng-repeat="rel in rels">
+        <span ng-if="rel.end.id == item.id">
+            <a href="/item/{{rel.start.id}}">
+                {{ rel.start.properties.title }}</a>
+        </span>
         <span>{{ rel.type}}</span>
-        <span ng-if="rel.start.id == item.id">{{ rel.end.properties.name }}</span>
+        <span ng-if="rel.start.id == item.id">
+            <a href="/item/{{rel.end.id}}">
+                {{ rel.end.properties.title }}</a>
+        </span>
     </li>
 </ul>

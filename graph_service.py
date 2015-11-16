@@ -8,9 +8,8 @@ def serialize(func):
         ''' serialize dis '''
         data = func(self, label)
         nodes = []
+        rels = []
         for item in data.records:
-            node = item['n']
-            rels = []
 
             try:
                 item_rels = item['r']
@@ -31,14 +30,18 @@ def serialize(func):
                         'type': rel.type,
                         'properties': rel.properties
                     })
-            nodes.append({
-                'id': node._id,
-                'labels': [l for l in node.labels],
-                'properties': node.properties,
-                'relationships': rels
-            })
+            try:
+                node = item['n']
+            except AttributeError:
+                pass
+            else:
+                nodes.append({
+                    'id': node._id,
+                    'labels': [l for l in node.labels],
+                    'properties': node.properties,
+                })
 
-        return nodes
+        return {'nodes': nodes, 'relationships': rels}
     return serialize_wrapper
 
 class GraphService(object):
