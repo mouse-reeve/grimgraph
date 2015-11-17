@@ -11,8 +11,14 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
     $scope.addField = function () {
         if ($scope.newField) {
             $scope.itemCopy.properties[$scope.newField] = "";
+            $scope.newField = null;
         }
     };
+
+    $scope.removeField = function (key) {
+        delete $scope.itemCopy.properties[key];
+    };
+
 
     $scope.updateNode = function () {
         Grimoire.updateNode($scope.itemCopy).then(function (data) {

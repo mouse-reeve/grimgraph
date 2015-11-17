@@ -6,6 +6,7 @@
             <label for="{{ key }}">{{ key }}
                 <span ng-hide="edit">{{ value }}</span>
                 <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
+                <i class="fa fa-minus" ng-click="removeField(key)" ng-show="edit"></i>
             </label>
         </li>
         <li ng-show="edit">
@@ -19,13 +20,15 @@
 <ul>
     <li ng-repeat="rel in rels">
         <span ng-if="rel.end.id == item.id">
-            <a href="/item/{{rel.start.id}}">
+            <a href="/{{rel.start.labels[0]}}/{{rel.start.id}}">
                 {{ rel.start.properties.title }}</a>
         </span>
         <span>{{ rel.type}}</span>
         <span ng-if="rel.start.id == item.id">
-            <a href="/item/{{rel.end.id}}">
+            <a href="/{{rel.end.labels[0]}}/{{rel.end.id}}">
                 {{ rel.end.properties.title }}</a>
         </span>
     </li>
 </ul>
+
+<a href="/{{item.labels[0]}}">List of {{item.labels[0]}}</a>

@@ -21,10 +21,12 @@ def serialize(func):
                         'id': rel._id,
                         'start': {
                             'id': rel.start_node._id,
+                            'labels':  [l for l in rel.start_node.labels],
                             'properties': rel.start_node.properties
                         },
                         'end': {
                             'id': rel.end_node._id,
+                            'labels':  [l for l in rel.end_node.labels],
                             'properties': rel.end_node.properties
                         },
                         'type': rel.type,
