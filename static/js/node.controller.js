@@ -2,21 +2,23 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         function($routeParams, $scope, Grimoire) {
 
     $scope.edit = false;
+    $scope.newItem = {'properties': {'identifier': ''}};
+
     Grimoire.loadNode($routeParams.id).then(function (data) {
         $scope.item = data.nodes[0];
         $scope.rels = data.relationships;
         $scope.itemCopy = angular.copy($scope.item);
     });
 
-    $scope.addField = function () {
-        if ($scope.newField) {
-            $scope.itemCopy.properties[$scope.newField] = "";
-            $scope.newField = null;
+    $scope.addField = function (item, fieldName) {
+        if (fieldName) {
+            item[fieldName] = "";
+            fieldName = null;
         }
     };
 
-    $scope.removeField = function (key) {
-        delete $scope.itemCopy.properties[key];
+    $scope.removeField = function (item, key) {
+        delete item[key];
     };
 
 

@@ -1,34 +1,58 @@
-<h2>{{ item.properties.title }}</h2>
-<i class="fa fa-pencil" ng-click="edit=true"></i>
-<form ng-submit="updateNode()">
-    <ul>
-        <li ng-repeat="(key, value) in itemCopy.properties">
-            <label for="{{ key }}">{{ key }}
-                <span ng-hide="edit">{{ value }}</span>
-                <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
-                <i class="fa fa-minus" ng-click="removeField(key)" ng-show="edit"></i>
-            </label>
-        </li>
-        <li ng-show="edit">
-            <i class="fa fa-plus" ng-click="addField()"></i>
-            <input type="text" ng-model="newField">
-        </li>
-    </ul>
-    <input type="submit" value="Save Changes" ng-show="edit">
-</form>
+<div class="row">
+    <div class="half">
+        <h2>{{ item.properties.identifier || 'Unnamed' }}</h2>
+        <i class="fa fa-pencil" ng-click="edit=true"></i>
+        <form ng-submit="updateNode()">
+            <ul>
+                <li ng-repeat="(key, value) in itemCopy.properties">
+                    <label for="{{ key }}">{{ key }}
+                        <span ng-hide="edit">{{ value }}</span>
+                        <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
+                        <i class="fa fa-minus" ng-click="removeField(itemCopy.properties, key)" ng-show="edit"></i>
+                    </label>
+                </li>
+                <li ng-show="edit">
+                    <i class="fa fa-plus" ng-click="addField(itemCopy.properties, editNewField)"></i>
+                    <input type="text" ng-model="editNewField">
+                </li>
+            </ul>
+            <input type="submit" value="Save Changes" ng-show="edit">
+        </form>
 
-<ul>
-    <li ng-repeat="rel in rels">
-        <span ng-if="rel.end.id == item.id">
-            <a href="/{{rel.start.labels[0]}}/{{rel.start.id}}">
-                {{ rel.start.properties.title }}</a>
-        </span>
-        <span>{{ rel.type}}</span>
-        <span ng-if="rel.start.id == item.id">
-            <a href="/{{rel.end.labels[0]}}/{{rel.end.id}}">
-                {{ rel.end.properties.title }}</a>
-        </span>
-    </li>
-</ul>
+        <ul>
+            <li ng-repeat="rel in rels">
+                <span ng-if="rel.end.id == item.id">
+                    <a href="/{{rel.start.labels[0]}}/{{rel.start.id}}">
+                        {{ rel.start.properties.identifier }}</a>
+                </span>
+                <span>{{ rel.type}}</span>
+                <span ng-if="rel.start.id == item.id">
+                    <a href="/{{rel.end.labels[0]}}/{{rel.end.id}}">
+                        {{ rel.end.properties.identifier }}</a>
+                </span>
+            </li>
+        </ul>
 
-<a href="/{{item.labels[0]}}">List of {{item.labels[0]}}</a>
+        <a href="/{{item.labels[0]}}">List of {{item.labels[0]}}</a>
+    </div>
+    <div class="half">
+        <h2>Add connected data</h2>
+        <form ng-submit="addNode()" name="newItemForm">
+            <ul>
+                <li>
+                    <label>Connection to {{item.properties.identifier}}
+                        <input type="text" ng-model="newItem.relationship" required></label>
+                </li>
+                <li>
+                    <label>Item type
+                        <input type="text" ng-model="newItem.label" required></label>
+                </li>
+                <li ng-repeat="(key, value) in newItem.properties">
+                    <label>{{ key }}
+                        <input type="text" ng-model="newItem.properties[key]" required></label>
+                </li>
+            </ul>
+            <input type="submit" value="Add Item" ng-disabled="newItemForm.$invalid">
+        </form>
+    </div>
+</div>
