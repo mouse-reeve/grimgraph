@@ -12,8 +12,21 @@ angular.module('grimoireService', []).service('Grimoire', function ($http) {
                 return response.data;
             });
         },
+
+        loadTypes: function () {
+            return $http.get('/api/types').then(function (response) {
+                return response.data;
+            });
+        },
+
         updateNode: function (item) {
             return $http.put('/api/item/' + item.id, item).then(function (response) {
+                return response.data;
+            });
+        },
+
+        addNode: function (item, label) {
+            return $http.post('/api/' + label, item).then(function (response) {
                 return response.data;
             });
         }

@@ -2,12 +2,19 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         function($routeParams, $scope, Grimoire) {
 
     $scope.edit = false;
-    $scope.newItem = {'properties': {'identifier': ''}};
 
     Grimoire.loadNode($routeParams.id).then(function (data) {
         $scope.item = data.nodes[0];
         $scope.rels = data.relationships;
         $scope.itemCopy = angular.copy($scope.item);
+        $scope.newItem = {
+            'properties': {'identifier': ''},
+            'relatedNode': $scope.item.id
+        };
+    });
+
+    Grimoire.loadTypes().then(function (data) {
+        $scope.types = data;
     });
 
     $scope.addField = function (item, fieldName) {
@@ -26,6 +33,12 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         Grimoire.updateNode($scope.itemCopy).then(function (data) {
             $scope.item = $scope.itemCopy;
             $scope.edit = false;
+        });
+    };
+
+    $scope.addNode = function () {
+        Grimoire.addNode($scope.newItem, $scope.newItem.label).then(function (data) {
+            console.log('yup');
         });
     };
 

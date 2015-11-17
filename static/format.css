@@ -33,6 +33,21 @@ h2 {
 
 li {
     list-style-type: none;
+    overflow: auto;
+    padding-bottom: 0.5em;
+}
+
+label {
+    display: block;
+}
+
+
+input {
+    float: left;
+}
+
+.suggestions {
+    float: left;
 }
 
 footer {

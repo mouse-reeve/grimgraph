@@ -5,15 +5,15 @@
         <form ng-submit="updateNode()">
             <ul>
                 <li ng-repeat="(key, value) in itemCopy.properties">
-                    <label for="{{ key }}">{{ key }}
-                        <span ng-hide="edit">{{ value }}</span>
-                        <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
-                        <i class="fa fa-minus" ng-click="removeField(itemCopy.properties, key)" ng-show="edit"></i>
-                    </label>
+                    <label for="{{ key }}">{{ key }}</label>
+                    <span ng-hide="edit">{{ value }}</span>
+                    <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
+                    <i class="fa fa-minus" ng-click="removeField(itemCopy.properties, key)" ng-show="edit"></i>
                 </li>
                 <li ng-show="edit">
-                    <i class="fa fa-plus" ng-click="addField(itemCopy.properties, editNewField)"></i>
+                    <label>add field</label>
                     <input type="text" ng-model="editNewField">
+                    <i class="fa fa-plus" ng-click="addField(itemCopy.properties, editNewField)"></i>
                 </li>
             </ul>
             <input type="submit" value="Save Changes" ng-show="edit">
@@ -40,16 +40,27 @@
         <form ng-submit="addNode()" name="newItemForm">
             <ul>
                 <li>
-                    <label>Connection to {{item.properties.identifier}}
-                        <input type="text" ng-model="newItem.relationship" required></label>
+                    <label>Connection to {{item.properties.identifier}}</label>
+                    <input type="text" ng-model="newItem.relationship" required>
                 </li>
                 <li>
-                    <label>Item type
-                        <input type="text" ng-model="newItem.label" required></label>
+                    <label>Item type</label>
+                    <input type="text" ng-model="newItem.label" required>
+                    <ul class="suggestions">
+                        <li ng-repeat="type in types">
+                            <span ng-click="newItem.label=type">{{ type }}</span>
+                        </li>
+                    </ul>
                 </li>
                 <li ng-repeat="(key, value) in newItem.properties">
-                    <label>{{ key }}
-                        <input type="text" ng-model="newItem.properties[key]" required></label>
+                    <label>{{ key }}</label>
+                    <input type="text" ng-model="newItem.properties[key]" required>
+                    <i class="fa fa-minus" ng-click="removeField(newItem.properties, key)" ng-show="edit"></i>
+                </li>
+                <li>
+                    <label>add field</label>
+                    <input type="text" ng-model="editNewField">
+                    <i class="fa fa-plus" ng-click="addField(newItem.properties, editNewField)"></i>
                 </li>
             </ul>
             <input type="submit" value="Add Item" ng-disabled="newItemForm.$invalid">

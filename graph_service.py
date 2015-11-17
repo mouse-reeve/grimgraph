@@ -16,22 +16,23 @@ def serialize(func):
             except AttributeError:
                 pass
             else:
-                for rel in item_rels:
-                    rels.append({
-                        'id': rel._id,
-                        'start': {
-                            'id': rel.start_node._id,
-                            'labels':  [l for l in rel.start_node.labels],
-                            'properties': rel.start_node.properties
-                        },
-                        'end': {
-                            'id': rel.end_node._id,
-                            'labels':  [l for l in rel.end_node.labels],
-                            'properties': rel.end_node.properties
-                        },
-                        'type': rel.type,
-                        'properties': rel.properties
-                    })
+                if item_rels:
+                    for rel in item_rels:
+                        rels.append({
+                            'id': rel._id,
+                            'start': {
+                                'id': rel.start_node._id,
+                                'labels':  [l for l in rel.start_node.labels],
+                                'properties': rel.start_node.properties
+                            },
+                            'end': {
+                                'id': rel.end_node._id,
+                                'labels':  [l for l in rel.end_node.labels],
+                                'properties': rel.end_node.properties
+                            },
+                            'type': rel.type,
+                            'properties': rel.properties
+                        })
             try:
                 node = item['n']
             except AttributeError:
@@ -53,11 +54,14 @@ class GraphService(object):
         graph = Graph()
         self.query = graph.cypher.execute
 
+    def get_labels(self):
+        ''' list of all types/labels in the db '''
+        data = self.query('MATCH n RETURN DISTINCT LABELS(n)')
+        return [l[0][0] for l in data]
 
     @serialize
     def get_all_for_type(self, label):
         ''' load all nodes with a given label '''
-        print('MATCH (n:%s) RETURN n' % label)
         data = self.query('MATCH (n:%s) RETURN n' % label)
         return data
 
@@ -65,13 +69,20 @@ class GraphService(object):
     @serialize
     def get_node(self, node_id):
         ''' load data '''
-        node = self.query('MATCH n-[r]-() WHERE id(n) = %s RETURN n, r' % node_id)
+        node = self.query('MATCH n WHERE id(n) = %s OPTIONAL MATCH (n)-[r]-() RETURN n, r' %
+                          node_id)
         return node
+
+
+    def relate_nodes(self, node1_id, node2_id, rel_name):
+        ''' create a relationship between two nodes '''
+        self.query('MATCH n, m WHERE id(n) = %s AND id(m) = %s CREATE (n)-[:%s]->(m)' %
+                   (node1_id, node2_id, rel_name))
 
 
     def add_node(self, label, params):
         ''' insert data '''
-        node = self.query('CREATE (n:%s) %s return n' % (label, json.dumps(params)))
+        node = self.query('CREATE (n:%s {params}) return n' % label, params=params)
         return node
 
 

@@ -26,7 +26,12 @@ def angular(path):
     return render_template('index.html')
 
 # ----- API routes
-@app.route('/api/<label>')
+@app.route('/api/types', methods=['GET'])
+def get_labels():
+    ''' list of datatypes that are present '''
+    return success(graph.get_labels())
+
+@app.route('/api/<label>', methods=['GET'])
 def get_node_list(label):
     ''' load all for a label '''
     data = graph.get_all_for_type(label)
@@ -36,10 +41,14 @@ def get_node_list(label):
 @app.route('/api/<label>', methods=['POST'])
 def add_node(label):
     ''' create a new item '''
-    params = request.json['properties']
+    node_data = request.json
+    params = node_data['properties']
     data = graph.add_node(label, params)
 
-    return success(data)
+    if node_data['relatedNode']:
+        graph.relate_nodes(node_data['relatedNode'], data[0][0]._id, node_data['relationship'])
+
+    return success()
 
 
 @app.route('/api/item/<item_id>', methods=['GET'])
