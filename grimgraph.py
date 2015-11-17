@@ -67,6 +67,14 @@ def update_node(item_id):
     return success(node)
 
 
+@app.route('/api/item/<item1_id>/<item2_id>', methods=['POST'])
+def add_relationship(item1_id, item2_id):
+    ''' connect two related nodes '''
+    rel_name = request.json['relationship']
+    graph.relate_nodes(item1_id, item2_id, rel_name)
+    return success()
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(port=4040)

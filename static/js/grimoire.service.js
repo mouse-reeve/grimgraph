@@ -29,6 +29,14 @@ angular.module('grimoireService', []).service('Grimoire', function ($http) {
             return $http.post('/api/' + label, item).then(function (response) {
                 return response.data;
             });
-        }
+        },
+
+        addRelationship: function (node1, node2, relName) {
+            return $http.post('/api/item/' + node1 + '/' + node2, {'relationship': relName}).then(function (response) {
+                return response.data;
+            });
+        },
+
+
     };
 });

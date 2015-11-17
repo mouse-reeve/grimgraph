@@ -35,7 +35,32 @@
 
         <a href="/{{item.labels[0]}}">List of {{item.labels[0]}}</a>
     </div>
+
     <div class="half">
+        <h2>Connect to item</h2>
+        <form name="newConnectionForm" ng-submit="addRelationship()">
+            <ul>
+                <li>
+                    <label>Connection to {{item.properties.identifier}}</label>
+                    <input type="text" ng-model="newConnection.relationship" required>
+                </li>
+                <li>
+                    <label>Item type</label>
+                    <select ng-model="connectType" ng-change="loadList(connectType)">
+                        <option ng-repeat="type in types" value="{{ type }}">
+                            {{ type }}
+                        </option>
+                    </select>
+
+                    <select ng-model="newConnection.relatedNode" ng-show="connectList" required>
+                        <option ng-repeat="node in connectList" value="{{ node.id }}">{{ node.properties.identifier }}</option>
+                    </select>
+                </li>
+            </ul>
+            <input type="submit" value="Add connection" ng-disabled="newConnectionForm.$invalid">
+        </form>
+
+
         <h2>Add connected data</h2>
         <form ng-submit="addNode()" name="newItemForm">
             <ul>
