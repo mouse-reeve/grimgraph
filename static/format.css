@@ -1,0 +1,38 @@
+h1, h2 {
+    font-family: helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
+h1 {
+    letter-spacing: 0.2em;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+h2 {
+    letter-spacing: 0.1em;
+    font-size: 1em;
+}
+
+#content {
+    padding-bottom: 4em;
+    font-family: georgia, serif;
+}
+
+li {
+    list-style-type: none;
+}
+
+footer {
+    font-family: helvetica, sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.1em;
+    font-size: 1em;
+}
+
+footer a {
+    text-decoration: none;
+}
+    
