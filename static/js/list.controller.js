@@ -3,10 +3,12 @@ angular.module('app').controller('ListCtrl', ['$routeParams', '$scope', 'Grimoir
 
     $scope.type = $routeParams.type || 'grimoires';
 
-    Grimoire.loadList($scope.type).then(function (data) {
-        $scope.nodes = data.nodes;
-        $scope.properties = data.properties;
-    });
+    var loadData = function () {
+        Grimoire.loadList($scope.type).then(function (data) {
+            $scope.nodes = data.nodes;
+            $scope.properties = data.properties;
+        });
+    };
 
     $scope.edit = function (node) {
         node.editMode = !node.editMode;
@@ -19,8 +21,11 @@ angular.module('app').controller('ListCtrl', ['$routeParams', '$scope', 'Grimoir
     };
 
     $scope.addNode = function () {
-        Grimoire.addNode($scope.newItem, $scope.newItem.label).then(function (data) {
+        Grimoire.addNode($scope.newItem, $scope.type).then(function (data) {
+            $scope.newItem.properties = {};
             loadData();
         });
     };
+
+    loadData();
 }]);

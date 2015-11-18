@@ -47,7 +47,7 @@ def add_node(label):
     params = node_data['properties']
     data = graph.add_node(label, params)
 
-    if node_data['relatedNode']:
+    if 'relatedNode' in node_data:
         graph.relate_nodes(node_data['relatedNode'], data[0][0]._id, node_data['relationship'])
 
     return success()

@@ -19,8 +19,19 @@
             <i class="fa fa-pencil" ng-click="edit(node)" ng-if="!node.editMode"></i>
         </td>
     </tr>
+    <tr ng-show="addMode">
+        <form name="addNodeForm">
+            <td>
+                <input ng-model="newItem.properties.identifier" required>
+            </td>
+            <td ng-repeat="prop in properties">
+                <input ng-model="newItem.properties[prop]">
+            </td>
+            <td>
+                <button ng-click="addNode()" ng-disabled="addNodeForm.$invalid">save</button>
+            </td>
+        </form>
+    </tr>
 </table>
-<ul>
-    <li ng-repeat="grimoire in nodes">
-    </li>
-</ul>
+
+<i class="fa fa-plus" ng-click="addMode=true"></i>
