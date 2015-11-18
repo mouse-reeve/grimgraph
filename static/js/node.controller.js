@@ -38,6 +38,7 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         });
     };
 
+
     $scope.addNode = function () {
         Grimoire.addNode($scope.newItem, $scope.newItem.label).then(function (data) {
             loadData();

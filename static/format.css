@@ -25,6 +25,18 @@ h2 {
     overflow: auto;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background: #eee;
+}
+
+td {
+    padding: 0.5em;
+}
+
 .row .half {
     margin-bottom: 1em;
     width: 48%;
@@ -35,6 +47,10 @@ li {
     list-style-type: none;
     overflow: auto;
     padding-bottom: 0.5em;
+}
+
+form {
+    overflow: auto;
 }
 
 label {
@@ -63,4 +79,3 @@ footer {
 footer a {
     text-decoration: none;
 }
-    

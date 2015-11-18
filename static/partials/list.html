@@ -1,6 +1,26 @@
 <h2>{{ type }}</h2>
+<table>
+    <tr>
+        <th></th>
+        <th ng-repeat="prop in properties">
+            {{ prop }}
+        </th>
+    </tr>
+    <tr ng-repeat="node in nodes">
+        <td>
+            <a href="/{{ type }}/{{ node.id }}">{{ node.properties.identifier }}</a>
+        </td>
+        <td ng-repeat="prop in properties">
+            <span ng-hide="node.editMode">{{ node.properties[prop] }}</span>
+            <input ng-show="node.editMode" ng-model="node.properties[prop]">
+        </td>
+        <td>
+            <button ng-click="updateNode(node)" ng-if="node.editMode">save</button>
+            <i class="fa fa-pencil" ng-click="edit(node)" ng-if="!node.editMode"></i>
+        </td>
+    </tr>
+</table>
 <ul>
-    <li ng-repeat="grimoire in grimoires">
-        <a href="/{{ type }}/{{grimoire.id}}">{{ grimoire.properties.identifier }}</a>
+    <li ng-repeat="grimoire in nodes">
     </li>
 </ul>
