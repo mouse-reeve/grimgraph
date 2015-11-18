@@ -2,7 +2,7 @@ angular.module('app').controller('ListCtrl', ['$routeParams', '$scope', 'Grimoir
         function($routeParams, $scope, Grimoire) {
 
     $scope.type = $routeParams.type || 'grimoires';
-    $scope.sortField = 'properties.title';
+    $scope.sortField = 'properties.identifier';
     $scope.reverse = false;
 
     var loadData = function () {
@@ -18,6 +18,12 @@ angular.module('app').controller('ListCtrl', ['$routeParams', '$scope', 'Grimoir
         } else {
             $scope.sortField = 'properties.' + field;
             $scope.reverse = false;
+        }
+    };
+
+    $scope.isSort = function (field) {
+        if ($scope.sortField == 'properties.' + field) {
+            return 'sort-field';
         }
     };
 

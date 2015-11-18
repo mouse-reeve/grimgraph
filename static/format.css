@@ -43,6 +43,9 @@ th {
     text-transform: uppercase;
     font-family: helvetica, sans-serif;
 }
+th .sort-field {
+    font-weight: bold;
+}
 
 td {
     padding: 0.5em;

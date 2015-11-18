@@ -1,16 +1,18 @@
 <h2>{{ type }}</h2>
 <table>
     <tr>
-        <th></th>
-        <th ng-repeat="prop in properties">
-            <span ng-click="setSort(prop)">{{ prop }}</span>
+        <th>
+            <span ng-class="isSort('identifier')" ng-click="setSort('identifier')">name</span>
+        </th>
+        <th ng-repeat="prop in properties" ng-if="prop !== 'identifier'">
+            <span ng-class="isSort(prop)" ng-click="setSort(prop)">{{ prop }}</span>
         </th>
     </tr>
     <tr ng-repeat="node in nodes | orderBy:sortField:reverse">
         <td>
             <a href="/{{ type }}/{{ node.id }}">{{ node.properties.identifier }}</a>
         </td>
-        <td ng-repeat="prop in properties">
+        <td ng-repeat="prop in properties" ng-if="prop !== 'identifier'">
             <span ng-hide="node.editMode">{{ node.properties[prop] }}</span>
             <input ng-show="node.editMode" ng-model="node.properties[prop]">
         </td>
@@ -21,9 +23,6 @@
     </tr>
     <tr ng-show="addMode">
         <form name="addNodeForm">
-            <td>
-                <input ng-model="newItem.properties.identifier" required>
-            </td>
             <td ng-repeat="prop in properties">
                 <input ng-model="newItem.properties[prop]">
             </td>
