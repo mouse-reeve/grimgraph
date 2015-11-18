@@ -39,6 +39,9 @@ td {
 
 th {
     text-align: left;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-family: helvetica, sans-serif;
 }
 
 td {
