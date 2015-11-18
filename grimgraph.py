@@ -35,7 +35,7 @@ def get_labels():
 def get_node_list(label):
     ''' load all for a label '''
     data = graph.get_all_for_type(label)
-    keys = list(set([item for sublist in data['nodes'] for item in sublist['properties']]))
+    keys = list(set([item for sublist in data['nodes'] for item in sublist['properties'] if item != 'identifier' and item != 'content']))
     data['properties'] = keys
     return success(data)
 
