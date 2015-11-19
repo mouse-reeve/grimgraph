@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="half">
+        <h2>{{ item.properties.identifier || 'Unnamed' }}</h2>
+            <ul>
+                <li ng-repeat="(key, value) in itemCopy.properties">
+                    <label for="{{ key }}">{{ key }}</label>
+                    <span>{{ value }}</span>
+                </li>
+            </ul>
+        </form>
+
+        <ul>
+            <li ng-repeat="rel in rels">
+                <span ng-if="rel.end.id == item.id">
+                    <a href="/{{rel.start.labels[0]}}/{{rel.start.id}}">
+                        {{ rel.start.properties.identifier }}</a>
+                </span>
+                <span>{{ rel.type}}</span>
+                <span ng-if="rel.start.id == item.id">
+                    <a href="/{{rel.end.labels[0]}}/{{rel.end.id}}">
+                        {{ rel.end.properties.identifier }}</a>
+                </span>
+            </li>
+        </ul>
+
+        <a href="/{{item.labels[0]}}">List of {{item.labels[0]}}</a>
+    </div>
+</div>

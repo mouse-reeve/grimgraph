@@ -1,5 +1,5 @@
 ''' webserver for grimoire graph data '''
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from graph_service import GraphService
 import json
 
@@ -23,8 +23,7 @@ def success(data=None):
 @app.route('/<path:path>')
 def angular(path):
     ''' render the basic template for angular '''
-    return render_template('index.html', static='static')
-
+    return render_template('index.html', static='static/readonly')
 
 # ----- API routes
 @app.route('/api/types', methods=['GET'])
@@ -42,19 +41,6 @@ def get_node_list(label):
     return success(data)
 
 
-@app.route('/api/<label>', methods=['POST'])
-def add_node(label):
-    ''' create a new item '''
-    node_data = request.json
-    params = node_data['properties']
-    data = graph.add_node(label, params)
-
-    if 'relatedNode' in node_data:
-        graph.relate_nodes(node_data['relatedNode'], data[0][0]._id, node_data['relationship'])
-
-    return success()
-
-
 @app.route('/api/item/<item_id>', methods=['GET'])
 def get_node(item_id):
     ''' load a specific item '''
@@ -62,23 +48,6 @@ def get_node(item_id):
     return success(data)
 
 
-@app.route('/api/item/<item_id>', methods=['PUT'])
-def update_node(item_id):
-    ''' create a new item '''
-    item = request.json
-    node = graph.update_params(item_id, item['properties'])
-
-    return success(node)
-
-
-@app.route('/api/item/<item1_id>/<item2_id>', methods=['POST'])
-def add_relationship(item1_id, item2_id):
-    ''' connect two related nodes '''
-    rel_name = request.json['relationship']
-    graph.relate_nodes(item1_id, item2_id, rel_name)
-    return success()
-
-
 if __name__ == '__main__':
     app.debug = True
-    app.run(port=4040)
+    app.run(port=4080)
