@@ -1,7 +1,7 @@
 angular.module('app').controller('ListCtrl', ['$routeParams', '$scope', 'Grimoire',
         function($routeParams, $scope, Grimoire) {
 
-    $scope.type = $routeParams.type || 'grimoires';
+    $scope.type = $routeParams.type || 'grimoire';
     $scope.sortField = 'properties.identifier';
     $scope.reverse = false;
 
