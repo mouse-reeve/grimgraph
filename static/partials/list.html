@@ -10,7 +10,8 @@
     </tr>
     <tr ng-repeat="node in nodes | orderBy:sortField:reverse">
         <td>
-            <a href="/{{ type }}/{{ node.id }}">{{ node.properties.identifier }}</a>
+            <a href="/{{ type }}/{{ node.id }}" ng-hide="node.editMode">{{ node.properties.identifier }}</a>
+            <input ng-show="node.editMode" ng-model="node.properties['identifier']">
         </td>
         <td ng-repeat="prop in properties">
             <span ng-hide="node.editMode">{{ node.properties[prop] }}</span>
