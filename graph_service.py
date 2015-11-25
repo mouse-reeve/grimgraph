@@ -57,10 +57,12 @@ class GraphService(object):
         graph = Graph()
         self.query = graph.cypher.execute
 
+
     def get_labels(self):
         ''' list of all types/labels in the db '''
         data = self.query('MATCH n RETURN DISTINCT LABELS(n)')
         return [l[0][0] for l in data]
+
 
     @serialize
     def get_all_for_type(self, label):
