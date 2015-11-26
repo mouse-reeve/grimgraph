@@ -53,7 +53,7 @@
                     </select>
 
                     <select ng-model="newConnection.relatedNode" ng-show="connectList" required>
-                        <option ng-repeat="node in connectList" value="{{ node.id }}">{{ node.properties.identifier }}</option>
+                        <option ng-repeat="node in connectList | orderBy:'properties.identifier':false" value="{{ node.id }}">{{ node.properties.identifier }}</option>
                     </select>
                 </li>
             </ul>
