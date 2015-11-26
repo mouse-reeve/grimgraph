@@ -77,6 +77,9 @@ input {
     padding: 0.5em;
     width: 20em;
 }
+.year, .century, .decade {
+    width: 5em;
+}
 
 .suggestions {
     float: left;

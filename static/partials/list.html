@@ -15,7 +15,7 @@
         </td>
         <td ng-repeat="prop in properties">
             <span ng-hide="node.editMode">{{ node.properties[prop] }}</span>
-            <input ng-show="node.editMode" ng-model="node.properties[prop]">
+            <input ng-show="node.editMode" ng-model="node.properties[prop]" class="{{ prop }}">
         </td>
         <td>
             <button ng-click="updateNode(node)" ng-if="node.editMode">save</button>
@@ -28,7 +28,7 @@
                 <input ng-model="newItem.properties.identifier" required>
             </td>
             <td ng-repeat="prop in properties">
-                <input ng-model="newItem.properties[prop]">
+                <input ng-model="newItem.properties[prop]" class="{{ prop }}">
             </td>
             <td>
                 <button ng-click="addNode()" ng-disabled="addNodeForm.$invalid">save</button>
