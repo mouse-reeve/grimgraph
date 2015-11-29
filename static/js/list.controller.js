@@ -45,11 +45,11 @@ angular.module('app').controller('ListCtrl', ['$routeParams', '$scope', 'Grimoir
     };
 
     $scope.setUID = function (node) {
-        node.properties.uid = node.properties.identifier.replace(' ', '_').toLowerCase();
+        node.properties.uid = node.properties.identifier.replace(' ', '-').toLowerCase();
     };
 
     $scope.cleanUID = function (node) {
-        node.properties.uid = node.properties.uid.replace(' ', '_').toLowerCase();
+        node.properties.uid = node.properties.uid.replace(' ', '-').toLowerCase();
     };
 
     loadData();
