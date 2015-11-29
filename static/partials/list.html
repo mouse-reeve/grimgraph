@@ -4,7 +4,10 @@
         <th>
             <span ng-class="isSort('identifier')" ng-click="setSort('identifier')">name</span>
         </th>
-        <th ng-repeat="prop in properties">
+        <th>
+            <span ng-class="isSort('uid')" ng-click="setSort('uid')">uid</span>
+        </th>
+        <th ng-repeat="prop in properties" ng-if="prop != 'uid'">
             <span ng-class="isSort(prop)" ng-click="setSort(prop)">{{ prop }}</span>
         </th>
     </tr>
@@ -13,7 +16,11 @@
             <a href="/{{ type }}/{{ node.id }}" ng-hide="node.editMode">{{ node.properties.identifier }}</a>
             <input ng-show="node.editMode" ng-model="node.properties['identifier']">
         </td>
-        <td ng-repeat="prop in properties">
+        <td>
+            <a href="/{{ type }}/{{ node.id }}" ng-hide="node.editMode">{{ node.properties.uid }}</a>
+            <input ng-show="node.editMode" ng-model="node.properties['uid']" ng-change="cleanUID(node)">
+        </td>
+        <td ng-repeat="prop in properties" ng-if="prop !== 'uid'">
             <span ng-hide="node.editMode">{{ node.properties[prop] }}</span>
             <input ng-show="node.editMode" ng-model="node.properties[prop]" class="{{ prop }}">
         </td>
@@ -23,11 +30,14 @@
         </td>
     </tr>
     <tr ng-show="addMode">
-        <form name="addNodeForm">
+        <form name="addNodeForm" ng-submit="addNode()">
             <td>
-                <input ng-model="newItem.properties.identifier" required>
+                <input ng-model="newItem.properties.identifier" required ng-change="setUID(newItem)">
             </td>
-            <td ng-repeat="prop in properties">
+            <td>
+                <input ng-model="newItem.properties.uid" ng-change="cleanUID(newItem)" required>
+            </td>
+            <td ng-repeat="prop in properties" ng-if="prop !== 'uid'">
                 <input ng-model="newItem.properties[prop]" class="{{ prop }}">
             </td>
             <td>
