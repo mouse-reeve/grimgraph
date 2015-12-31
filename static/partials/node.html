@@ -30,6 +30,9 @@
                     <a href="/{{rel.end.labels[0]}}/{{rel.end.id}}">
                         {{ rel.end.properties.identifier }}</a>
                 </span>
+                <span class="delete">
+                    <a href="" ng-click="removeRelationship(rel.id)">(delete)</a>
+                </span>
             </li>
         </ul>
 

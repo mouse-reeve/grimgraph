@@ -98,3 +98,8 @@ footer {
 footer a {
     text-decoration: none;
 }
+
+.delete {
+    float: right;
+    clear: right;
+}

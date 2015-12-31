@@ -95,3 +95,7 @@ class GraphService(object):
         ''' set the parameters on a node '''
         self.query('MATCH n WHERE id(n) = %s SET n = {params} RETURN n' %
                    node_id, params=params)
+
+    def remove_relationship(self, rel_id):
+        ''' delete rels '''
+        return self.query('MATCH ()-[r]-() WHERE id(r) = %s DELETE r' % rel_id)

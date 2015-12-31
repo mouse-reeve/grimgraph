@@ -37,6 +37,11 @@ angular.module('grimoireService', []).service('Grimoire', function ($http) {
             });
         },
 
+        removeRelationship: function (relId) {
+            return $http.delete('/api/rel/' + relId).then(function (response) {
+                return response.data;
+            });
+        }
 
     };
 });

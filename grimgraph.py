@@ -78,6 +78,12 @@ def add_relationship(item1_id, item2_id):
     graph.relate_nodes(item1_id, item2_id, rel_name)
     return success()
 
+@app.route('/api/rel/<rel_id>', methods=['DELETE'])
+def delete_relationship(rel_id):
+    ''' delete a rel '''
+    graph.remove_relationship(rel_id)
+    return success()
+
 
 if __name__ == '__main__':
     app.debug = True

@@ -51,6 +51,12 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         });
     };
 
+    $scope.removeRelationship = function (relId) {
+        Grimoire.removeRelationship(relId).then(function () {
+            loadData();
+        });
+    };
+
     $scope.loadList = function (label) {
         Grimoire.loadList(label).then(function (data) {
             $scope.connectList = data.nodes;
