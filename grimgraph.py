@@ -23,7 +23,7 @@ def success(data=None):
 @app.route('/<path:path>')
 def angular(path):
     ''' render the basic template for angular '''
-    return render_template('index.html', static='static')
+    return render_template('index.html')
 
 
 # ----- API routes
