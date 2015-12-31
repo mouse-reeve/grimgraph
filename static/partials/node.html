@@ -62,36 +62,5 @@
             </ul>
             <input type="submit" value="Add connection" ng-disabled="newConnectionForm.$invalid">
         </form>
-
-
-        <h2>Add connected data</h2>
-        <form ng-submit="addNode()" name="newItemForm">
-            <ul>
-                <li>
-                    <label>Connection to {{item.properties.identifier}}</label>
-                    <input type="text" ng-model="newItem.relationship" required>
-                </li>
-                <li>
-                    <label>Item type</label>
-                    <input type="text" ng-model="newItem.label" required>
-                    <ul class="suggestions">
-                        <li ng-repeat="type in types">
-                            <span ng-click="newItem.label=type">{{ type }}</span>
-                        </li>
-                    </ul>
-                </li>
-                <li ng-repeat="(key, value) in newItem.properties">
-                    <label>{{ key }}</label>
-                    <input type="text" ng-model="newItem.properties[key]" required>
-                    <i class="fa fa-minus" ng-click="removeField(newItem.properties, key)" ng-show="edit"></i>
-                </li>
-                <li>
-                    <label>add field</label>
-                    <input type="text" ng-model="editNewField">
-                    <i class="fa fa-plus" ng-click="addField(newItem.properties, editNewField)"></i>
-                </li>
-            </ul>
-            <input type="submit" value="Add Item" ng-disabled="newItemForm.$invalid">
-        </form>
     </div>
 </div>
