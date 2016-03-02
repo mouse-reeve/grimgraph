@@ -1,10 +1,7 @@
 ''' webserver for grimoire graph data '''
-from flask import Flask, render_template, request
-from graph_service import GraphService
+from flask import render_template, request
+from grimgraph import app, graph
 import json
-
-app = Flask(__name__)
-graph = GraphService()
 
 
 # ----- util
@@ -83,8 +80,3 @@ def delete_relationship(rel_id):
     ''' delete a rel '''
     graph.remove_relationship(rel_id)
     return success()
-
-
-if __name__ == '__main__':
-    app.debug = True
-    app.run(port=4040)
