@@ -1,20 +1,27 @@
 <div class="row">
     <div class="half">
         <h2>{{ item.properties.identifier || 'Unnamed' }}</h2>
+        <i class="fa fa-pencil" ng-click="edit=true"></i>
         <form ng-submit="updateNode()">
             <ul>
-                <li ng-repeat="(key, value) in itemCopy.properties">
-                    <label for="{{ key }}">{{ key }}</label>
-                    <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]">
-                    <i class="fa fa-minus" ng-click="removeField(itemCopy.properties, key)"></i>
-                </li>
                 <li>
+                    <label>Content</label>
+                    <textarea ng-model="itemCopy.properties.content" ng-if="edit"></textarea>
+                    <p ng-if="!edit">{{ itemCopy.properties.content" }}</p>
+                </li>
+                <li ng-repeat="(key, value) in itemCopy.properties" ng-if="key != 'content'">
+                    <label for="{{ key }}">{{ key }}</label>
+                    <span ng-hide="edit">{{ value }}</span>
+                    <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
+                    <i class="fa fa-minus" ng-click="removeField(itemCopy.properties, key)" ng-show="edit"></i>
+                </li>
+                <li ng-if="edit">
                     <label>add field</label>
                     <input type="text" ng-model="editNewField">
                     <i class="fa fa-plus" ng-click="addField(itemCopy.properties, editNewField)"></i>
                 </li>
             </ul>
-            <input type="submit" value="Save Changes">
+            <input type="submit" value="Save Changes" ng-if="edit">
         </form>
 
         <ul>
@@ -46,7 +53,7 @@
                     <button ng-click="item.isNew = true">New Item</button>
                 </div>
                 <select ng-model="item.existingItem" ng-if="!item.isNew">
-                    <option ng-repeat="option in item.options" value="{{ option.id }}" required>
+                    <option ng-repeat="option in item.options | orderBy:'properties.identifier'" value="{{ option.id }}" required>
                         {{ option.properties.identifier }}
                     </option>
                 </select>
