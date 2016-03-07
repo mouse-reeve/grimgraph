@@ -7,6 +7,9 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         grimoire: {
             edition: {
                 label: 'edition', show: false, relationship: 'has', start: false
+            },
+            language: {
+                label: 'language', show: false, relationship: 'was_written_in', start: false
             }
         },
         edition: {
@@ -101,6 +104,10 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
 
                 Grimoire.addRelationship(startId, endId, item.relationship).then(loadData);
             });
+        } else {
+            var startId = item.start ? item.existingItem : $scope.item.id;
+            var endId = item.start ? $scope.item.id : item.existingItem;
+            Grimoire.addRelationship(startId, endId, item.relationship).then(loadData);
         }
     };
 

@@ -64,7 +64,9 @@
                         <input type="text" ng-model="item.newItem.properties[prop]">
                     </li>
                 </ul>
-                <input type="submit" value="Add item" ng-disabled="itemForm[label].$invalid">
+                <div>
+                    <input type="submit" value="Add item" ng-disabled="itemForm[label].$invalid">
+                </div>
             </form>
         </div>
 
