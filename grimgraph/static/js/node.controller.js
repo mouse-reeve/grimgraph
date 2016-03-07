@@ -8,6 +8,14 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
             edition: {
                 label: 'edition', show: false, relationship: 'has', start: false
             }
+        },
+        edition: {
+            publisher: {
+                label: 'publisher', show: false, relationship: 'published', start: true
+            },
+            editor: {
+                label: 'editor', show: false, relationship: 'edited', start: true
+            }
         }
     };
 
