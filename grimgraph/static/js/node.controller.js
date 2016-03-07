@@ -3,6 +3,25 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
 
     $scope.edit = false;
 
+    var customAdd = {
+        grimoire: {
+            edition: {
+                label: 'edition', show: false, relationship: 'has', start: false
+            }
+        }
+    };
+
+    angular.forEach(['demon', 'angel', 'olympian_spirit', 'fairy', 'aerial_spirit'], function (entity) {
+        customAdd.grimoire[entity] = {
+            label: entity,
+            show: false,
+            relationship: 'lists',
+            start: false
+        };
+    });
+
+    $scope.addItem = customAdd[$routeParams.type] || {};
+
     var loadData = function () {
         Grimoire.loadNode($routeParams.id).then(function (data) {
             $scope.item = data.nodes[0];
@@ -45,8 +64,8 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         });
     };
 
-    $scope.addRelationship = function () {
-        Grimoire.addRelationship($scope.item.id, $scope.newConnection.relatedNode, $scope.newConnection.relationship).then(function () {
+    $scope.addRelationship = function (relatedNode, relationship) {
+        Grimoire.addRelationship($scope.item.id, relatedNode, relationship).then(function () {
             loadData();
         });
     };
@@ -55,6 +74,26 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         Grimoire.removeRelationship(relId).then(function () {
             loadData();
         });
+    };
+
+    $scope.showAddItem = function (type) {
+        Grimoire.loadList(type).then(function (data) {
+            $scope.addItem[type].show = true;
+            $scope.addItem[type].options = data.nodes;
+            $scope.addItem[type].props = data.properties;
+        });
+    };
+
+    $scope.saveAddItem = function (item) {
+        if (item.isNew) {
+            Grimoire.addNode(item.newItem, item.label).then(function (data) {
+                console.log(data);
+                var startId = item.start ? data.nodes[0].id : $scope.item.id;
+                var endId = item.start ? $scope.item.id : data.nodes[0].id;
+
+                Grimoire.addRelationship(startId, endId, item.relationship).then(loadData);
+            });
+        }
     };
 
     $scope.loadList = function (label) {

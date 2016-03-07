@@ -1,22 +1,20 @@
 <div class="row">
     <div class="half">
         <h2>{{ item.properties.identifier || 'Unnamed' }}</h2>
-        <i class="fa fa-pencil" ng-click="edit=true"></i>
         <form ng-submit="updateNode()">
             <ul>
                 <li ng-repeat="(key, value) in itemCopy.properties">
                     <label for="{{ key }}">{{ key }}</label>
-                    <span ng-hide="edit">{{ value }}</span>
-                    <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]" ng-show="edit">
-                    <i class="fa fa-minus" ng-click="removeField(itemCopy.properties, key)" ng-show="edit"></i>
+                    <input name="{{ key }}" type="text" ng-model="itemCopy.properties[key]">
+                    <i class="fa fa-minus" ng-click="removeField(itemCopy.properties, key)"></i>
                 </li>
-                <li ng-show="edit">
+                <li>
                     <label>add field</label>
                     <input type="text" ng-model="editNewField">
                     <i class="fa fa-plus" ng-click="addField(itemCopy.properties, editNewField)"></i>
                 </li>
             </ul>
-            <input type="submit" value="Save Changes" ng-show="edit">
+            <input type="submit" value="Save Changes">
         </form>
 
         <ul>
@@ -40,8 +38,38 @@
     </div>
 
     <div class="half">
+        <div class="add-item" ng-repeat="(label, item) in addItem">
+            <h2 ng-click="showAddItem(label)">Add {{ label }}</h2>
+            <form name="itemForm[label]" ng-submit="saveAddItem(item)" ng-show="item.show">
+                <div class="toggle">
+                    <button ng-click="item.isNew = false">Existing item</button>
+                    <button ng-click="item.isNew = true">New Item</button>
+                </div>
+                <select ng-model="item.existingItem" ng-if="!item.isNew">
+                    <option ng-repeat="option in item.options" value="{{ option.id }}" required>
+                        {{ option.properties.identifier }}
+                    </option>
+                </select>
+                <ul ng-if="item.isNew">
+                    <li>
+                        <label>identifier</label>
+                        <input type="text" ng-model="item.newItem.properties.identifier" required>
+                    </li>
+                    <li>
+                        <label>uid</label>
+                        <input type="text" ng-model="item.newItem.properties.uid" required>
+                    </li>
+                    <li ng-repeat="prop in item.props" ng-if="!(prop == 'uid' || prop == 'identifier')">
+                        <label>{{ prop }}</label>
+                        <input type="text" ng-model="item.newItem.properties[prop]">
+                    </li>
+                </ul>
+                <input type="submit" value="Add item" ng-disabled="itemForm[label].$invalid">
+            </form>
+        </div>
+
         <h2>Connect to item</h2>
-        <form name="newConnectionForm" ng-submit="addRelationship()">
+        <form name="newConnectionForm" ng-submit="addRelationship(newConnection.relatedNode, newConnection.relationship)">
             <ul>
                 <li>
                     <label>Connection to {{item.properties.identifier}}</label>

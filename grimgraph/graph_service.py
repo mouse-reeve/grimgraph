@@ -4,9 +4,9 @@ from py2neo import authenticate, Graph
 
 def serialize(func):
     ''' serialize neo4j data '''
-    def serialize_wrapper(self, label):
+    def serialize_wrapper(self, label, *args):
         ''' serialize dis '''
-        data = func(self, label)
+        data = func(self, label, *args)
         nodes = []
         rels = []
         for item in data.records:
@@ -85,6 +85,7 @@ class GraphService(object):
                    (node1_id, node2_id, rel_name))
 
 
+    @serialize
     def add_node(self, label, params):
         ''' insert data '''
         node = self.query('CREATE (n:%s {params}) return n' % label, params=params)

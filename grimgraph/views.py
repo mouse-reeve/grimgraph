@@ -38,7 +38,6 @@ def get_node_list(label):
     data['properties'] = keys
     return success(data)
 
-
 @app.route('/api/<label>', methods=['POST'])
 def add_node(label):
     ''' create a new item '''
@@ -49,7 +48,7 @@ def add_node(label):
     if 'relatedNode' in node_data:
         graph.relate_nodes(node_data['relatedNode'], data[0][0]._id, node_data['relationship'])
 
-    return success()
+    return success(data)
 
 
 @app.route('/api/item/<item_id>', methods=['GET'])
