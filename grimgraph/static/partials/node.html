@@ -7,7 +7,7 @@
                 <li>
                     <label>Content</label>
                     <textarea ng-model="itemCopy.properties.content" ng-if="edit"></textarea>
-                    <p ng-if="!edit">{{ itemCopy.properties.content }}</p>
+                    <pre ng-if="!edit">{{ itemCopy.properties.content }}</pre>
                 </li>
                 <li ng-repeat="(key, value) in itemCopy.properties" ng-if="key != 'content'">
                     <label for="{{ key }}">{{ key }}</label>
@@ -27,12 +27,12 @@
         <ul>
             <li ng-repeat="rel in rels">
                 <span ng-if="rel.end.id == item.id">
-                    <a href="/{{rel.start.labels[0]}}/{{rel.start.id}}">
+                    <a href="/{{rel.start.label}}/{{rel.start.id}}">
                         {{ rel.start.properties.identifier }}</a>
                 </span>
                 <span>{{ rel.type}}</span>
                 <span ng-if="rel.start.id == item.id">
-                    <a href="/{{rel.end.labels[0]}}/{{rel.end.id}}">
+                    <a href="/{{rel.end.label}}/{{rel.end.id}}">
                         {{ rel.end.properties.identifier }}</a>
                 </span>
                 <span class="delete">
@@ -41,7 +41,7 @@
             </li>
         </ul>
 
-        <a href="/{{item.labels[0]}}">List of {{item.labels[0]}}</a>
+        <a href="/{{item.label}}">List of {{item.label}}</a>
     </div>
 
     <div class="half">
