@@ -22,7 +22,7 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         }
     };
 
-    angular.forEach(['demon', 'angel', 'olympian_spirit', 'fairy', 'aerial_spirit'], function (entity) {
+    angular.forEach(['spell', 'demon', 'angel', 'olympian_spirit', 'fairy', 'aerial_spirit'], function (entity) {
         customAdd.grimoire[entity] = {
             label: entity,
             show: false,
