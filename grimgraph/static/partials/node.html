@@ -7,7 +7,7 @@
                 <li>
                     <label>Content</label>
                     <textarea ng-model="itemCopy.properties.content" ng-if="edit"></textarea>
-                    <pre ng-if="!edit">{{ itemCopy.properties.content }}</pre>
+                    <p ng-if="!edit">{{ itemCopy.properties.content }}</p>
                 </li>
                 <li ng-repeat="(key, value) in itemCopy.properties" ng-if="key != 'content'">
                     <label for="{{ key }}">{{ key }}</label>

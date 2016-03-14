@@ -19,6 +19,9 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
             editor: {
                 label: 'editor', show: false, relationship: 'edited', start: true
             }
+        },
+        demon: {
+            outcome: {label: 'outcome', show:false, relationship:'for', start:false}
         }
     };
 

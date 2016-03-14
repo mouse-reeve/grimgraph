@@ -56,3 +56,8 @@ class GraphService(object):
     def remove_relationship(self, rel_id):
         ''' delete rels '''
         return self.query('MATCH ()-[r]-() WHERE id(r) = %s DELETE r' % rel_id)
+
+    @serialize
+    def run_query(self, q):
+        ''' run a query for nodes '''
+        return self.query(q)

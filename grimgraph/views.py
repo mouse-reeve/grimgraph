@@ -79,3 +79,13 @@ def delete_relationship(rel_id):
     ''' delete a rel '''
     graph.remove_relationship(rel_id)
     return success()
+
+
+
+@app.route('/api/query', methods=['POST'])
+def run_query():
+    ''' create a new item '''
+    query = request.json
+    data = graph.run_query(query['query'])
+
+    return success(data)

@@ -52,5 +52,11 @@ angular.module('app').controller('ListCtrl', ['$routeParams', '$scope', 'Grimoir
         node.properties.uid = node.properties.uid.replace(' ', '-').toLowerCase();
     };
 
+    $scope.query = function (q) {
+        Grimoire.query(q).then(function (data) {
+            $scope.nodes = data.nodes;
+        });
+    };
+
     loadData();
 }]);

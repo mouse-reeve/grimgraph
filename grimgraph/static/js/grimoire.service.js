@@ -41,6 +41,12 @@ angular.module('grimoireService', []).service('Grimoire', function ($http) {
             return $http.delete('/api/rel/' + relId).then(function (response) {
                 return response.data;
             });
+        },
+
+        query: function (q) {
+            return $http.post('/api/query', {'query': q}).then(function (response) {
+                return response.data;
+            });
         }
 
     };
