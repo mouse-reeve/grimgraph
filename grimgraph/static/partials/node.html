@@ -87,7 +87,7 @@
                 <li>
                     <label>Item type</label>
                     <select ng-model="connectType" ng-change="loadList(connectType)">
-                        <option ng-repeat="type in types" value="{{ type }}">
+                        <option ng-repeat="type in types track by $index" value="{{ type }}">
                             {{ type }}
                         </option>
                     </select>
