@@ -3,43 +3,6 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
 
     $scope.edit = false;
 
-    var customAdd = {
-        grimoire: {
-            edition: {
-                label: 'edition', show: false, relationship: 'has', start: false
-            },
-            language: {
-                label: 'language', show: false, relationship: 'was_written_in', start: false
-            }
-        },
-        edition: {
-            publisher: {
-                label: 'publisher', show: false, relationship: 'published', start: true
-            },
-            editor: {
-                label: 'editor', show: false, relationship: 'edited', start: true
-            }
-        },
-        demon: {
-            outcome: {label: 'outcome', show:false, relationship:'for', start:false}
-        },
-        aerial_spirit: {
-            aerial_spirit: {label: 'aerial_spirit', show: false, relationship: 'serves', start: true}
-        }
-    };
-
-    customAdd.book = customAdd.grimoire;
-
-    angular.forEach(['spell', 'demon', 'angel', 'olympian_spirit', 'fairy', 'aerial_spirit'], function (entity) {
-        customAdd.grimoire[entity] = {
-            label: entity,
-            show: false,
-            relationship: 'lists',
-            start: false
-        };
-    });
-
-    $scope.addItem = customAdd[$routeParams.type] || {};
 
     var loadData = function () {
         Grimoire.loadNode($routeParams.id).then(function (data) {
@@ -50,6 +13,10 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
                 'properties': {'identifier': ''},
                 'relatedNode': $scope.item.id
             };
+
+            if (!$scope.addItem) {
+                $scope.addItem = data['common']
+            }
         });
     };
 
@@ -95,11 +62,11 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         });
     };
 
-    $scope.showAddItem = function (type) {
-        Grimoire.loadList(type).then(function (data) {
-            $scope.addItem[type].show = true;
-            $scope.addItem[type].options = data.nodes;
-            $scope.addItem[type].props = data.properties;
+    $scope.showAddItem = function (item) {
+        Grimoire.loadList(item.label).then(function (data) {
+            item.show = true;
+            item.options = data.nodes;
+            item.props = data.properties;
         });
     };
 
@@ -109,12 +76,12 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
                 var startId = item.start ? data.nodes[0].id : $scope.item.id;
                 var endId = item.start ? $scope.item.id : data.nodes[0].id;
 
-                Grimoire.addRelationship(startId, endId, item.relationship).then(loadData);
+                Grimoire.addRelationship(startId, endId, item.rel).then(loadData);
             });
         } else {
             var startId = item.start ? item.existingItem : $scope.item.id;
             var endId = item.start ? $scope.item.id : item.existingItem;
-            Grimoire.addRelationship(startId, endId, item.relationship).then(loadData);
+            Grimoire.addRelationship(startId, endId, item.rel).then(loadData);
         }
     };
 

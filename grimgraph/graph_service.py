@@ -57,6 +57,16 @@ class GraphService(object):
         ''' delete rels '''
         return self.query('MATCH ()-[r]-() WHERE id(r) = %s DELETE r' % rel_id)
 
+    def common_rels(self, label):
+        ''' a list of relationships that usually exist for a label '''
+        start_q = 'MATCH (n:%s)<-[r]-(m) ' \
+            'WITH COLLECT(r) AS cr, TYPE(r) AS rs, LABELS(m) AS lm ' \
+            'WHERE LENGTH(cr) > 1 RETURN DISTINCT rs, lm' % label
+        end_q = 'MATCH (n:%s)-[r]->(m) ' \
+            'WITH COLLECT(r) AS cr, TYPE(r) AS rs, LABELS(m) AS lm ' \
+            'WHERE LENGTH(cr) > 1 RETURN DISTINCT rs, lm' % label
+        return {'start': self.query(start_q), 'end': self.query(end_q)}
+
     @serialize
     def run_query(self, q):
         ''' run a query for nodes '''

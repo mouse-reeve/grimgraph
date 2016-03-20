@@ -55,6 +55,13 @@ def add_node(label):
 def get_node(item_id):
     ''' load a specific item '''
     data = graph.get_node(item_id)
+    common_rels = graph.common_rels(data['nodes'][0]['label'])
+
+    common = [{'rel': c[0], 'label': c[1][0], 'start': True} for c in common_rels['start']]
+    common += [{'rel': c[0], 'label': c[1][0], 'start': False} for c in common_rels['end']]
+
+    data['common'] = common
+
     return success(data)
 
 

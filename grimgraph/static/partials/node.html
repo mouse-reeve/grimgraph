@@ -45,9 +45,13 @@
     </div>
 
     <div class="half">
-        <div class="add-item" ng-repeat="(label, item) in addItem">
-            <h2 ng-click="showAddItem(label)">Add {{ label }}</h2>
-            <form name="itemForm[label]" ng-submit="saveAddItem(item)" ng-show="item.show">
+        <div class="add-item" ng-repeat="item in addItem">
+            <h2 ng-click="showAddItem(item)">
+                <span ng-if="item.start">{{ item.label }}</span>
+                {{ item.rel }}
+                <span ng-if="!item.start">{{ item.label }}</span>
+            </h2>
+            <form name="itemForm[item.label]" ng-show="item.show">
                 <div class="toggle">
                     <button ng-click="item.isNew = false">Existing item</button>
                     <button ng-click="item.isNew = true">New Item</button>
@@ -72,7 +76,7 @@
                     </li>
                 </ul>
                 <div>
-                    <input type="submit" value="Add item" ng-disabled="itemForm[label].$invalid">
+                    <input type="submit" value="Add item" ng-disabled="itemForm[item.label].$invalid" ng-click="saveAddItem(item)">
                 </div>
             </form>
         </div>
