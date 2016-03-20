@@ -60,7 +60,7 @@
                 <ul ng-if="item.isNew">
                     <li>
                         <label>identifier</label>
-                        <input type="text" ng-model="item.newItem.properties.identifier" required>
+                        <input type="text" ng-model="item.newItem.properties.identifier" ng-change="setUID(item.newItem)" required>
                     </li>
                     <li>
                         <label>uid</label>

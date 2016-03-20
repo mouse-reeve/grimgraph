@@ -22,6 +22,9 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         },
         demon: {
             outcome: {label: 'outcome', show:false, relationship:'for', start:false}
+        },
+        aerial_spirit: {
+            aerial_spirit: {label: 'aerial_spirit', show: false, relationship: 'serves', start: true}
         }
     };
 
@@ -103,7 +106,6 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
     $scope.saveAddItem = function (item) {
         if (item.isNew) {
             Grimoire.addNode(item.newItem, item.label).then(function (data) {
-                console.log(data);
                 var startId = item.start ? data.nodes[0].id : $scope.item.id;
                 var endId = item.start ? $scope.item.id : data.nodes[0].id;
 
@@ -120,6 +122,10 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
         Grimoire.loadList(label).then(function (data) {
             $scope.connectList = data.nodes;
         });
+    };
+
+    $scope.setUID = function (node) {
+        node.properties.uid = node.properties.identifier.replace(' ', '-').toLowerCase();
     };
 
     loadData();
