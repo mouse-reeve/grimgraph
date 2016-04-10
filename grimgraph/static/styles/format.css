@@ -1,0 +1,62 @@
+h2 {
+    text-transform: uppercase;
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+#content {
+    font-family: georgia, serif;
+    margin: 1em;
+}
+
+table {
+    line-height: 1em;
+}
+
+th {
+    font-weight: normal;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+th .sort-field {
+    font-weight: bold;
+}
+
+li {
+    list-style-type: none;
+    overflow: auto;
+}
+
+form {
+    overflow: auto;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 0.5em;
+}
+
+textarea {
+    height: 15em;
+}
+
+input[type="text"] {
+    float: left;
+    width: 20em;
+    margin-right: 1em;
+}
+
+.date {
+    width: 5em;
+}
+
+.delete {
+    float: right;
+    clear: right;
+}

@@ -3,7 +3,8 @@
 <head>
     <title>Grimoire notes</title>
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <link type="text/css" rel="stylesheet" href="/static/format.css">
+    <link type="text/css" rel="stylesheet" href="/static/styles/foundation.min.css">
+    <link type="text/css" rel="stylesheet" href="/static/styles/format.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script src="/static/angular.min.js"></script>
@@ -16,9 +17,15 @@
 </head>
 
 <body>
-    <header>
-        <h1>Grimoire <i class="fa fa-book"></i> Metadata</h1>
-    </header>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <ul class="dropdown menu">
+                <li class="menu-text">Grimoire Graph Editor</li>
+                <li><a href="/">home</a></li>
+                <li><a href="/grimoire">grimoires</a></li>
+            </ul>
+        </div>
+    </div>
 
     <div id="content" ng-view></div>
 </body>

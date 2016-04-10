@@ -1,5 +1,12 @@
-<input type="text" ng-model="q"><button ng-click="query(q)">query</button>
-<h2>{{ type }}</h2>
+<div>
+    <div class="top-bar-left">
+        <h2>{{ type }}</h2>
+    </div>
+    <div class="top-bar-right">
+        <input type="text" ng-model="q"><a class="medium button" ng-click="query(q)">Query</a>
+    </div>
+</div>
+
 <table>
     <tr>
         <td></td>
@@ -15,7 +22,7 @@
     </tr>
     <tr ng-repeat="node in nodes | orderBy:sortField:reverse">
         <td>
-            <button ng-click="updateNode(node)" ng-if="node.editMode">save</button>
+            <button ng-click="updateNode(node)" ng-if="node.editMode" class="button">save</button>
             <i class="fa fa-pencil" ng-click="edit(node)" ng-if="!node.editMode"></i>
         </td>
         <td>
@@ -31,7 +38,7 @@
             <input ng-show="node.editMode" ng-model="node.properties[prop]" class="{{ prop }}">
         </td>
         <td>
-            <button ng-click="updateNode(node)" ng-if="node.editMode">save</button>
+            <button ng-click="updateNode(node)" ng-if="node.editMode" class="button">save</button>
             <i class="fa fa-pencil" ng-click="edit(node)" ng-if="!node.editMode"></i>
         </td>
     </tr>
@@ -60,7 +67,7 @@
                 <input ng-model="newItem.properties[prop]" class="{{ prop }}">
             </td>
             <td>
-                <button ng-click="addNode()" ng-disabled="addNodeForm.$invalid">save</button>
+                <button class="button" ng-click="addNode()" ng-disabled="addNodeForm.$invalid">save</button>
             </td>
         </form>
     </tr>

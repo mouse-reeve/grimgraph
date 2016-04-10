@@ -4,6 +4,7 @@ angular.module('app').controller('ListCtrl', ['$routeParams', '$scope', 'Grimoir
     $scope.type = $routeParams.type || 'grimoire';
     $scope.sortField = 'properties.identifier';
     $scope.reverse = false;
+    $scope.q = 'match (n:' + $scope.type + ') return n';
 
     var loadData = function () {
         Grimoire.loadList($scope.type).then(function (data) {
