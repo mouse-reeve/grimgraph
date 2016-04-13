@@ -15,7 +15,7 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
             };
 
             if (!$scope.addItem) {
-                $scope.addItem = data['common']
+                $scope.addItem = data.common;
             }
         });
     };
@@ -92,7 +92,8 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
     };
 
     $scope.setUID = function (node) {
-        node.properties.uid = node.properties.identifier.replace(' ', '-').toLowerCase();
+        var uid = node.properties.identifier.toLowerCase();
+        node.properties.uid = uid.split(' ').join('-');
     };
 
     loadData();
