@@ -1,9 +1,9 @@
 <div class="row">
-    <div class="medium-3 columns">&nbsp;</div>
-    <div class="medium-6 columns">
+    <div class="medium-5 columns">&nbsp;</div>
+    <div class="medium-5 columns">
         <h2>{{ item.properties.identifier || 'Unnamed' }}</h2>
     </div>
-    <div class="medium-3 columns">
+    <div class="medium-1 columns">
         <i class="fa fa-pencil" ng-click="edit=true"></i>
     </div>
 </div>
@@ -34,6 +34,10 @@
                     <li>
                         <label>uid</label>
                         <input type="text" ng-model="item.newItem.properties.uid" required>
+                    </li>
+                    <li>
+                        <label>content</label>
+                        <textarea ng-model="item.newItem.properties.content"></textarea>
                     </li>
                     <li ng-repeat="prop in item.props" ng-if="!(prop == 'uid' || prop == 'identifier')">
                         <label>{{ prop }}</label>
