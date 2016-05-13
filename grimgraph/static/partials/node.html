@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-    <div class="medium-3 columns">
+    <div class="medium-5 columns">
         <div class="add-item" ng-repeat="item in addItem | orderBy:'rel'">
             <h3 ng-click="showAddItem(item)">
                 <span ng-if="item.start">{{ item.label }}</span>
@@ -71,7 +71,7 @@
         </form>
     </div>
 
-    <div class="medium-9 columns">
+    <div class="medium-7 columns">
         <form ng-submit="updateNode()">
             <ul>
                 <li>
