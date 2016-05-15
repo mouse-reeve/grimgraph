@@ -1,6 +1,6 @@
 <div>
     <div class="top-bar-left">
-        <h2>{{ type }}</h2>
+        <h2>{{ type }} ({{ nodes.length || '...' }})</h2>
     </div>
     <div class="top-bar-right">
         <input type="text" ng-model="q"><a class="medium button" ng-click="query(q)">Query</a>

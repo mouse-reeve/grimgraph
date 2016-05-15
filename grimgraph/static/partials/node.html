@@ -4,6 +4,7 @@
         <h2>{{ item.properties.identifier || 'Unnamed' }}</h2>
     </div>
     <div class="medium-1 columns">
+        <a href="localhost:4080/{{ item.label }}/{{ item.properties.uid }}" targer="_blank"><i class="fa fa-eye"></i></a>
         <i class="fa fa-pencil" ng-click="edit=true"></i>
     </div>
 </div>

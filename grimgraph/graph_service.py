@@ -14,6 +14,16 @@ class GraphService(object):
         self.query = graph.cypher.execute
 
 
+    @serialize
+    def set_label(self, node_id, label, remove=None):
+        ''' add or replace labels on a node '''
+        query = 'MATCH n WHERE ID(n) = %d SET n:%s' % (node_id, label)
+        if remove:
+            query += ' REMOVE n:%s' % remove
+        query += ' RETURN n'
+        return self.query(query)
+
+
     def get_labels(self):
         ''' list of all types/labels in the db '''
         data = self.query('MATCH n RETURN DISTINCT LABELS(n)')
