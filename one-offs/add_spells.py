@@ -17,7 +17,7 @@ def add_items(json_file_path):
 
         for item in data:
             identifier = re.sub(r'[\.,]', '', item['title'])
-            uid = re.sub(r'\'', '', identifier).lower().split(' ')
+            uid = re.sub(r'[\':]', '', identifier).lower().split(' ')
             skipwords = ['to', 'for', 'that', 'of', 'the', 'how', 'and', 'it', 'a', 'should',
                          'be', 'that']
             uid = [i for i in uid if not i in skipwords]
@@ -40,7 +40,6 @@ def add_items(json_file_path):
                 'source_title': 'Egyptian Secrets of Albertus Magnus',
                 'source_url': 'http://esotericarchives.com/moses/egyptian.htm'
             }
-
 
             query = 'MATCH (n:grimoire) ' \
                     'WHERE n.uid="egyptian-secrets-of-albertus-magnus" ' \
