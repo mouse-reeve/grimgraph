@@ -82,6 +82,8 @@
                 <li>
                     <label>Content</label>
                     <textarea ng-model="itemCopy.properties.content" ng-if="edit"></textarea>
+                    --
+                    <p ng-repeat="excerpt in item.excerpts">{{ excerpt }}</p>
                     <p ng-if="!edit">{{ itemCopy.properties.content }}</p>
                 </li>
                 <li ng-repeat="(key, value) in itemCopy.properties" ng-if="key != 'content'">

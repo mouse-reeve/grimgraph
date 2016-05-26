@@ -7,6 +7,7 @@ angular.module('app').controller('NodeCtrl', ['$routeParams', '$scope', 'Grimoir
     var loadData = function () {
         Grimoire.loadNode($routeParams.id).then(function (data) {
             $scope.item = data.nodes[0];
+            $scope.item.excerpts = data.excerpts
             $scope.rels = data.relationships;
             $scope.itemCopy = angular.copy($scope.item);
             $scope.newItem = {

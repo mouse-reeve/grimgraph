@@ -61,6 +61,8 @@ def get_node(item_id):
     common += [{'rel': c[0], 'label': c[1][0], 'start': False} for c in common_rels['end']]
 
     data['common'] = common
+    data['excerpts'] = [n['end']['properties']['content'] for n in data['relationships']
+                        if n['type'] == 'excerpt']
 
     return success(data)
 
