@@ -20,7 +20,8 @@ def success(data=None):
 @app.route('/<path:path>')
 def angular(path):
     ''' render the basic template for angular '''
-    return render_template('index.html')
+    links = [l[0] for l in graph.get_labels()[:3]]
+    return render_template('index.html', links=links)
 
 
 # ----- API routes
