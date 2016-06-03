@@ -26,8 +26,8 @@ class GraphService(object):
 
     def get_labels(self):
         ''' list of all types/labels in the db '''
-        data = self.query('MATCH n RETURN DISTINCT LABELS(n)')
-        return [l[0][0] for l in data]
+        data = self.query('MATCH n RETURN DISTINCT LABELS(n), COUNT(n)')
+        return [(l[0][0], l[1]) for l in data]
 
 
     def edit_label(self, current_label, new_label):

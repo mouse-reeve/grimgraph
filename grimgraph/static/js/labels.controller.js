@@ -21,10 +21,10 @@ angular.module('app').controller('LabelsCtrl', ['$scope', 'Grimoire', function($
         var labels = {}
         angular.forEach(data, function (label) {
             labels[label] = {
-                'label': label,
-                'updated': label,
+                'label': label[0],
+                'updated': label[0],
                 'editMode': false,
-                'count': '?'
+                'count': label[1]
             };
         });
         return labels
