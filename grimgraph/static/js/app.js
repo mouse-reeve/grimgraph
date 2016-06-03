@@ -7,8 +7,8 @@ angular.module('app', ['grimoireService', 'ngRoute'])
 
     $routeProvider
         .when('/', {
-            controller: 'ListCtrl',
-            templateUrl: '/static/partials/list.html'
+            controller: 'LabelsCtrl',
+            templateUrl: '/static/partials/labels.html'
         })
         .when('/:type', {
             controller: 'ListCtrl',

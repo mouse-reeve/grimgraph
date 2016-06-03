@@ -47,7 +47,18 @@ angular.module('grimoireService', []).service('Grimoire', function ($http) {
             return $http.post('/api/query', {'query': q}).then(function (response) {
                 return response.data;
             });
-        }
+        },
 
+        loadLabels: function () {
+            return $http.get('/api/types').then(function (response) {
+                return response.data;
+            });
+        },
+
+        editLabel: function (label, updated) {
+            return $http.put('/api/types/' + label, {'updated': updated}).then(function (response) {
+                return response.data;
+            });
+        }
     };
 });

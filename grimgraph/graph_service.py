@@ -30,6 +30,13 @@ class GraphService(object):
         return [l[0][0] for l in data]
 
 
+    def edit_label(self, current_label, new_label):
+        ''' modify a label by removing it and adding the right text '''
+        query = 'MATCH (n:%s) SET n:%s REMOVE n:%s' % (current_label, new_label, current_label)
+        self.query(query)
+        return self.get_labels()
+
+
     @serialize
     def get_all_for_type(self, label):
         ''' load all nodes with a given label '''

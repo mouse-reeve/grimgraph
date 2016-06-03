@@ -1,0 +1,26 @@
+<div>
+    <div class="top-bar-left">
+        <h2>Labels</h2>
+    </div>
+</div>
+
+<table>
+    <tr>
+        <td></td>
+        <th>Label</th>
+        <th>Node count</th>
+    </tr>
+    <tr ng-repeat="label in labels">
+        <td>
+            <button ng-click="updateLabel(label)" ng-if="label.editMode" class="button">save</button>
+            <i class="fa fa-pencil" ng-click="edit(label)" ng-if="!label.editMode"></i>
+        </td>
+        <td>
+            <a href="/{{ label.label }}" ng-if="!label.editMode">{{ label.label }}</a>
+            <input type="text" ng-model="label.updated" ng-if="label.editMode">
+        </td>
+        <td>
+            {{ label.count }}
+        </td>
+    </tr>
+</table>

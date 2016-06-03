@@ -29,6 +29,16 @@ def get_labels():
     ''' list of datatypes that are present '''
     return success(graph.get_labels())
 
+@app.route('/api/types/<label>', methods=['PUT'])
+def edit_label(label):
+    ''' modify a label '''
+    data = request.json
+    try:
+        updated = data['updated']
+    except KeyError:
+        return failure('Updated label not found')
+    return success(graph.edit_label(label, updated))
+
 @app.route('/api/<label>', methods=['GET'])
 def get_node_list(label):
     ''' load all for a label '''
