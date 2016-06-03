@@ -31,6 +31,10 @@ angular.module('grimoireService', []).service('Grimoire', function ($http) {
             });
         },
 
+        deleteNode: function(item_id) {
+            return $http.delete('/api/item/' + item_id);
+        },
+
         addRelationship: function (node1, node2, relName) {
             return $http.post('/api/item/' + node1 + '/' + node2, {'relationship': relName}).then(function (response) {
                 return response.data;

@@ -7,7 +7,11 @@
         <a href="localhost:4080/{{ item.label }}/{{ item.properties.uid }}" targer="_blank"><i class="fa fa-eye"></i></a>
         <i class="fa fa-pencil" ng-click="edit=true"></i>
     </div>
+    <div class="medium-1 columns" ng-if="!rels.length">
+        <i class="fa fa-trash-o" ng-click="deleteNode()"></i>
+    </div>
 </div>
+
 
 <div class="row">
     <div class="medium-5 columns">

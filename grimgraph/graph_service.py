@@ -52,6 +52,12 @@ class GraphService(object):
         return node
 
 
+    def delete_node(self, node_id):
+        ''' delete a node that has no rels '''
+        query = 'MATCH n WHERE id(n)=%d DELETE n' % node_id
+        return self.query(query)
+
+
     def relate_nodes(self, node1_id, node2_id, rel_name):
         ''' create a relationship between two nodes '''
         self.query('MATCH n, m WHERE id(n) = %s AND id(m) = %s CREATE (n)-[:%s]->(m)' %

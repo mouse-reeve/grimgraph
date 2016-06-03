@@ -87,6 +87,14 @@ def update_node(item_id):
     return success(node)
 
 
+@app.route('/api/item/<item_id>', methods=['DELETE'])
+def delete_node(item_id):
+    ''' create a new item '''
+    item_id = int(item_id)
+    graph.delete_node(item_id)
+    return success()
+
+
 @app.route('/api/item/<item1_id>/<item2_id>', methods=['POST'])
 def add_relationship(item1_id, item2_id):
     ''' connect two related nodes '''
