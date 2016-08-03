@@ -4,11 +4,11 @@
         <h2>{{ item.properties.identifier || 'Unnamed' }}</h2>
     </div>
     <div class="medium-1 columns">
-        <a href="localhost:4080/{{ item.label }}/{{ item.properties.uid }}" targer="_blank"><i class="fa fa-eye"></i></a>
-        <i class="fa fa-pencil" ng-click="edit=true"></i>
+        <a href="localhost:4080/{{ item.label }}/{{ item.properties.uid }}" targer="_blank"><i class="fa fa-eye">view</i></a>
+        <i class="fa fa-pencil" ng-click="edit=true">edit</i>
     </div>
     <div class="medium-1 columns" ng-if="!rels.length">
-        <i class="fa fa-trash-o" ng-click="deleteNode()"></i>
+        <i class="fa fa-trash-o" ng-click="deleteNode()">delete</i>
     </div>
 </div>
 
@@ -99,7 +99,7 @@
                 <li ng-if="edit">
                     <label>add field</label>
                     <input type="text" ng-model="editNewField">
-                    <i class="fa fa-plus" ng-click="addField(itemCopy.properties, editNewField)"></i>
+                    <i class="fa fa-plus" ng-click="addField(itemCopy.properties, editNewField)">add</i>
                 </li>
             </ul>
             <input class="button" type="submit" value="Save Changes" ng-if="edit">
