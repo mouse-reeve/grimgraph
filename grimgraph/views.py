@@ -57,7 +57,8 @@ def add_node(label):
     data = graph.add_node(label, params)
 
     if 'relatedNode' in node_data:
-        graph.relate_nodes(node_data['relatedNode'], data[0][0]._id, node_data['relationship'])
+        graph.relate_nodes(node_data['relatedNode'], \
+                           data[0][0]._id, node_data['relationship'])
 
     return success(data)
 
@@ -68,11 +69,16 @@ def get_node(item_id):
     data = graph.get_node(item_id)
     common_rels = graph.common_rels(data['nodes'][0]['label'])
 
-    common = [{'rel': c[0], 'label': c[1][0], 'start': True} for c in common_rels['start']]
-    common += [{'rel': c[0], 'label': c[1][0], 'start': False} for c in common_rels['end']]
+    common = [{'rel': c[0], 'label': c[1][0] \
+               if not 'parent' in c[1][0] else c[1][1], 'start': True} \
+               for c in common_rels['start']]
+    common += [{'rel': c[0], 'label': c[1][0] \
+                if not 'parent' in c[1][0] else c[1][1], 'start': False} \
+                for c in common_rels['end']]
 
     data['common'] = common
-    data['excerpts'] = [n['end']['properties']['content'] for n in data['relationships']
+    data['excerpts'] = [n['end']['properties']['content'] \
+                        for n in data['relationships']
                         if n['type'] == 'excerpt']
 
     return success(data)

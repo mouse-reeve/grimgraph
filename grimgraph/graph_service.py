@@ -26,13 +26,16 @@ class GraphService(object):
 
     def get_labels(self):
         ''' list of all types/labels in the db '''
-        data = self.query('MATCH n RETURN DISTINCT LABELS(n), COUNT(n) ORDER BY COUNT(n) DESC')
-        return [(l[0][0], l[1]) for l in data]
+        data = self.query('MATCH n RETURN DISTINCT LABELS(n), COUNT(n) '
+                          'ORDER BY COUNT(n) DESC')
+        return [(l[0][0] if not 'parent' in l[0][0] else l[0][1], l[1]) \
+                for l in data]
 
 
     def edit_label(self, current_label, new_label):
         ''' modify a label by removing it and adding the right text '''
-        query = 'MATCH (n:%s) SET n:%s REMOVE n:%s' % (current_label, new_label, current_label)
+        query = 'MATCH (n:%s) SET n:%s REMOVE n:%s' \
+                % (current_label, new_label, current_label)
         self.query(query)
         return self.get_labels()
 
@@ -47,7 +50,8 @@ class GraphService(object):
     @serialize
     def get_node(self, node_id):
         ''' load data '''
-        node = self.query('MATCH n WHERE id(n) = %s OPTIONAL MATCH (n)-[r]-() RETURN n, r' %
+        node = self.query('MATCH n WHERE id(n) = %s '
+                          'OPTIONAL MATCH (n)-[r]-() RETURN n, r' %
                           node_id)
         return node
 
@@ -60,14 +64,16 @@ class GraphService(object):
 
     def relate_nodes(self, node1_id, node2_id, rel_name):
         ''' create a relationship between two nodes '''
-        self.query('MATCH n, m WHERE id(n) = %s AND id(m) = %s CREATE (n)-[:%s]->(m)' %
+        self.query('MATCH n, m WHERE id(n) = %s AND id(m) = %s '
+                   'CREATE (n)-[:%s]->(m)' %
                    (node1_id, node2_id, rel_name))
 
 
     @serialize
     def add_node(self, label, params):
         ''' insert data '''
-        node = self.query('CREATE (n:%s {params}) return n' % label, params=params)
+        node = self.query('CREATE (n:%s {params}) return n' % label,
+                          params=params)
         return node
 
 
