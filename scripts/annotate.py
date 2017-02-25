@@ -1,9 +1,11 @@
 ''' add links to a block of text '''
 import json
 import re
+import sys
 
+filename = sys.argv[1]
 annotation_set = json.load(file('scripts/annotation_set.json'))
-original = open('verum.md', 'r')
+original = open(filename, 'r')
 
 annotated = original.read()
 for word in annotation_set:
@@ -16,6 +18,6 @@ for word in annotation_set:
 
 annotated = re.sub('XXXDONEXXX', '', annotated)
 
-open('verum-annotated.md', 'w').write(annotated)
+open('annotated-grimoire.md', 'w').write(annotated)
 
 
