@@ -17,7 +17,7 @@ $ source bin/activate
 $ pip install -r requirements.txt
 ```
 
-- [Install Neo4j](http://neo4j.com/download/) version 2.3.1
+- [Install Neo4j](http://neo4j.com/download/) version 2.3.8
 - Open Neo4j and create or select the desired database
 - Set the environment variables `NEO4J_USER` and `NEO4J_PASS` to the Neo4j user and password
 - Run the application
